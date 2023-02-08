@@ -9,3 +9,5 @@ The 0-current_working_directory script prints the absolute path name of the curr
 4-listmorefiles script displays current directory contents including hidden files in long format
 
 5-listfilesdigitonly displays directory contents numerically.
+
+6-firstdirectory creates a directory called my_first_directory.
