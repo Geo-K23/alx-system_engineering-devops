@@ -13,3 +13,5 @@ The 0-current_working_directory script prints the absolute path name of the curr
 6-firstdirectory creates a directory called my_first_directory.
 
 7-movethatfile moves the betty file
+
+8-firstdelete deletes the betty file
