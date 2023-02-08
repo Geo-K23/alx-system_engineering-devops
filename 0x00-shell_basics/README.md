@@ -7,3 +7,5 @@ The 0-current_working_directory script prints the absolute path name of the curr
 3-listfiles script displays current directory contents in a long format
 
 4-listmorefiles script displays current directory contents including hidden files in long format
+
+5-listfilesdigitonly displays directory contents numerically.
