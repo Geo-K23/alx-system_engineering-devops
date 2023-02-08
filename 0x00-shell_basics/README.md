@@ -19,3 +19,4 @@ The 0-current_working_directory script prints the absolute path name of the curr
 9-firstdirdeletion deletes my_first_directory
 10-back takes you back to the previous directory
 11-lists lists files
+12-filetype
