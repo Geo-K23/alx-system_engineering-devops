@@ -12,3 +12,4 @@
 11-directories counts directories and subdirectories
 12-new_files lists new files in order
 13-unique prints sorted unique words
+14-findthatword displays lines following a specified pattern
