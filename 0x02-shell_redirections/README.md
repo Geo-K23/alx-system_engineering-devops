@@ -6,3 +6,4 @@
 5-firstlines displays the 10 first lines
 6-third_line displays the third line
 7-file creates a file with a weird name
+8-cwd_state writes results of ls -la into a file
