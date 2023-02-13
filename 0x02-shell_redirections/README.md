@@ -14,3 +14,4 @@
 13-unique prints sorted unique words
 14-findthatword displays lines following a specified pattern
 15-countthatword displays the number of lines with a specified pattern
+16-whatsnext
