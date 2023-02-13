@@ -8,3 +8,4 @@
 7-file creates a file with a weird name
 8-cwd_state writes results of ls -la into a file
 9-duplicate_line duplicates last line
+10-no_more_js finds and deletes files with .js extension
