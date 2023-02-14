@@ -10,3 +10,4 @@
 8-true_knowledge prints result of addition
 9-divide_and_rule divides two variables
 10-love_exponent_breath calculates exponent value
+11-binary_to_decimal converts a number from base 2 to base 10
