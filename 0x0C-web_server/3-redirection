@@ -1,26 +1,26 @@
 #!/usr/bin/env bash
-# Configures an Nginx server so that /redirect_me redirects to another page.
-# The redirection is configured as a "301 Moved Permanently"
+# This script installs Nginx server and redirects /redirect_me
 
-apt-get -y update
-apt-get -y install nginx
-
-# is used to allow incoming connections to the Nginx HTTP server through the firewall through port 80. using the ufw (Uncomplicated Firewall) command-line tool.
+sudo apt -y update
+sudo apt install -y nginx
 sudo ufw allow 'Nginx HTTP'
+echo "Hello World!" | sudo tee /var/www/html/index.html
 
-# change the owner of the /var/www directory to the current user recursively. To allow modification of the files in the directory.
-sudo chown -R "$USER" /var/www
+# Alternatively:
+# echo "Hello World!" > index.html
+# sudo mv index.html /var/www/html
 
-# set up a page containing "Hello World" when queried at the root with a curl GET request.
-echo 'Hello World!' > /var/www/html/index.nginx-debian.html
+echo "server {
+	listen 80 default_server;
+        listen [::]:80 default_server;
 
-# change the owner of the /etc/nginx/sites-available/defaul/etc/nginx/sites-available/default,to enable modification of the config file.
-sudo chown -R "$USER" /etc/nginx/sites-available/default
+        root /var/www/html;
+        index index.html;
 
-# Making a backup of the default file, in case something goes wrong
-sudo cp /etc/nginx/sites-available/default /etc/nginx/sites-available/default.bak
+        location /redirect_me {
+                return 301 https://www.youtube.com/watch?v=QH2-TGUlwu4;
+        }
+}" > default
 
-# Setting up /redirect_me to a permanent redirect to https://www.youtube.com/watch?v=QH2-TGUlwu4
-sudo sed -i '24i\rewrite ^/redirect_me https://www.youtube.com/watch?v=QH2-TGUlwu4 permanent;' /etc/nginx/sites-available/default
-
-service nginx restart
+sudo mv -f default /etc/nginx/sites-available/default
+sudo service nginx restart
