@@ -1,23 +1,32 @@
 #!/usr/bin/env bash
-# This configure web-02 to be identical to web-01
+# This script installs nginx server and configures it to port 80,
+# sets the redirect_me page, 404 not found page and X-served by header
 
-sudo apt-get -y update
-
-sudo apt-get -y install nginx
-
+sudo apt update
+sudo apt install -y nginx
 sudo ufw allow 'Nginx HTTP'
+echo "Hello World!" | sudo tee /var/www/html/index.html
 
-sudo chown -R $USER /var/www
+# Alternative commands:
+# echo "Hello World!" > index.html
+# sudo mv index.html /var/www/html
 
-sudo chown -R $USER /etc/nginx/sites-available/default
+echo "Ceci n'est pas une page" > 404.html
+sudo mv 404.html /var/www/html
+echo "server {
+	listen 80 default_server;
+	listen [::]:80 default_server;
+	add_header X-Served-By $HOSTNAME;
+	root /var/www/html;
+	location /redirect_me {
+		return 301 https://www.youtube.com/watch?v=QH2-TGUlwu4;
+	}
 
-sudo cp /etc/nginx/sites-available/default /etc/nginx/sites-available/default.bak
+	error_page 404 /404.html;
+	location = /404.html{
+	internal;
+	}	
+}" > default
 
-echo 'Hello World!' > /var/www/html/index.nginx-debian.html
-echo "Ceci n'est pas une page" >> /var/www/html/error_404.html
-sudo service nginx start
-sudo sed -i '24i\rewrite ^/redirect_me https://www.youtube.com/watch?v=QH2-TGUlwu4 permanent;' /etc/nginx/sites-available/default
-
-sudo sed -i '25i\	error_page 404 /error_404.html;' /etc/nginx/sites-available/default
-sudo sed -i '49i\\tadd_header X-Served-By \$hostname;' /etc/nginx/sites-available/default
+sudo mv -f default /etc/nginx/sites-available/default
 sudo service nginx restart
