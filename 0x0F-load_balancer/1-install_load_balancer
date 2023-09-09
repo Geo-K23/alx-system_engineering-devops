@@ -1,0 +1,21 @@
+#!/usr/bin/env bash
+# This bash script installs and configures a new HAproxy as a load balancer
+
+# Installing HAproxy on a server
+sudo apt-get -y update
+sudo apt-get install -y haproxy
+
+# configuring HAproxy
+echo '
+frontend www-http
+	bind *:80
+	mode http
+	default_backend www-backend
+backend www-backend
+	balance roundrobin
+	server 247462-web-01 54.175.129.43:80 check
+	server 247462-web-02 100.25.194.214:80 check
+' >> /etc/haproxy/haproxy.cfg
+
+# Restarting HAproxy service
+sudo service haproxy restart
