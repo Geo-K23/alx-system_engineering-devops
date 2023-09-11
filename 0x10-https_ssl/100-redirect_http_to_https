@@ -46,5 +46,5 @@ frontend www-https
 
 backend www-backend
         balance roundrobin
-        server 247462-web-01 54.175.129.43 check
-        server 247462-web-02 100.25.194.214 check
+        server 247462-web-01 54.175.129.43:80 check
+        server 247462-web-02 100.25.194.214:80 check
