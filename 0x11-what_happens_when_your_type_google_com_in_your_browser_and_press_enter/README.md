@@ -10,4 +10,5 @@ It involves the following concepts:
 - Web server
 - Application server
 - Database  
+
 The task is to write a blog post explaining how the above features interact with one another when someone types `https://www.google.com` in their browser and press `Enter`
