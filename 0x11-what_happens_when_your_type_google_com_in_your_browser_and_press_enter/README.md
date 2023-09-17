@@ -2,12 +2,12 @@
 ## DevOps Network SysAdmin
 This project is about assessing knowledge of how the web stack works on top of the internet.  
 It involves the following concepts:
-DNS request
+- DNS request
 - TCP/IP
 - Firewall
 - HTTPS/SSL
 - Load-balancer
 - Web server
 - Application server
-- Database
+- Database  
 The task is to write a blog post explaining how the above features interact with one another when someone types `https://www.google.com` in their browser and press `Enter`
