@@ -1,15 +1,5 @@
-#sudo vi /etc/ufw/before.rules
+# sudo vi /etc/ufw/before.rules
 # ## This is added to allow port 8080/TCP to forward or redirect to 80/TCP
-*nat
-:PREROUTING ACCEPT [0:0]
--A PREROUTING -p tcp --dport 8080 -j REDIRECT --to-port 80
-COMMIT
-# end of added section
-
-# Below is the content of the file /etc/ufw/before.rules config file
-
-
-
 #
 # rules.before
 #
