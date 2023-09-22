@@ -1,0 +1,19 @@
+#!/usr/bin/env bash
+# This script allows a web server to run Nginx as user, to listen on port 8080
+
+# Replace the line that starts with "#user www-data" with "user nginx" in the /etc/nginx/nginx.conf configuration file
+# This changes the user that Nginx runs under from www-data to nginx
+sed -i "s/#user www-data/user nginx" /etc/nginx/nginx.conf
+
+# Replaces any occurence of '80' with '8080' in the /etc/nginx/sites-available/default configuration file
+# This changes the default HTTP port that Nginx listens on from 80 to 8080
+sed -i "s/80/8080/g" /etc/nginx/sites-available/default
+
+# Changing the owner of the /var/www directory to the nginx recursively
+chmod 644 /etc/nginx/nginx.conf
+
+# This stops the Apache HTTP server if it's running, to allow only Nginx run on port 8080
+pkill apache2
+
+# Restarting Nginx
+sudo -u nginx service nginx restart
