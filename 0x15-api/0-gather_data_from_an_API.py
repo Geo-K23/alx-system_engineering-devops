@@ -4,19 +4,28 @@ This uses https://jsonplaceholder.typicode.com for an employee ID to
 return information about the his/her TODO list progress
 """
 
+
+import json
 import requests
-from sys import argv
+import sys
+
+
+def get_user_todo_list():
+    employee_id = int(sys.argv[1])
+    url1 = 'https://jsonplaceholder.typicode.com/users/%s' % employee_id
+    url2 = '%s/todos' % url1
+    todo_list = requests.get(url2).json()
+    user = requests.get(url1).json()
+    completed_todo = []
+    for todo in todo_list:
+        if todo.get('completed') is True:
+            completed_todo.append(todo.get('title'))
+
+    print("Employee {} is done with tasks({}/{}): "
+          .format(user.get('name'), len(completed_todo), len(todo_list)))
+    for todo in completed_todo:
+        print("\t {}".format(todo))
+
 
 if __name__ == '__main__':
-    userId = argv[1]
-    user = requests.get("https://jsonplaceholder.typicode.com/users/{}".
-                        format(userId), verify=False).json()
-    todo = requests.get("https://jsonplaceholder.typicode.com/todos?userId={}".
-                        format(userId), verify=False).json()
-    completed_tasks = []
-    for task in todo:
-        if task.get('completed') is True:
-            completed_tasks.append(task.get('title'))
-    print("Employee {} is done with tasks({}/{}):".
-          format(user.get('name'), len(completed_tasks), len(todo)))
-    print("\n".join("\t {}".format(task) for task in completed_tasks))
+    todo_list = get_user_todo_list()
