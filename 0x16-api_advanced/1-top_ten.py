@@ -7,16 +7,15 @@ import requests
 def top_ten(subreddit):
     """Prints the titles of the 10 hottest posts on a given subreddit."""
     url = "https://www.reddit.com/r/{}/hot/.json".format(subreddit)
-    headers = {
-            "User-Agent": "Custom"
-            }
-    params = {
-            "Limit": 10
-            }
-    response = requests.get(url, headers=headers, params=params,
-                            allow_redirects=False)
-    if response.status_code == 404:
-        print("None")
+    userAgent = "Brave/1.57.62"
+    limits = 10
+    response = requests.get(
+        url, headers={"user-agent": userAgent}, params={"limit": limits})
+    if not response:
+        print('None')
         return
-    results = response.json().get("data")
-    [print(c.get("data").get("title")) for c in results.get("children")]
+    response = response.json()
+    list_obj = response['data']['children']
+    for obj in list_obj:
+        print(obj['data']['title'])
+    return
