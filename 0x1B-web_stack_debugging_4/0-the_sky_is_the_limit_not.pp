@@ -1,13 +1,13 @@
 # Increasing the amount of traffic an Nginx server can handle
 
 # Fix and allow unlimited traffic/requests
-exec { 'fix--for-nginx':
-  command => 'sed -i "s/15/4096/" /etc/default/nginx',
-  path    => '/usr/local/bin/:/bin/'
-} ->
+exec {'replace':
+  provider => shell,
+  command  => 'sudo sed -i "s/ULIMIT=\"-n 15\"/ULIMIT=\"-n 4096\"/" /etc/default/nginx',
+  before   => Exec['restart'],
+}
 
-# Restarting Nginx
-exec { 'nginx-restart':
-  command => 'nginx restart',
-  path    => '/etc/init.d/'
+exec {'restart':
+  provider => shell,
+  command  => 'sudo service nginx restart',
 }
